@@ -86,7 +86,7 @@
         "script/fix-slow-dns.sh",
         "script/sshd.sh",
         "script/vagrant.sh",
-        "script/virtualbox-additions.sh.sh",
+        "script/virtualbox-additions.sh",
         "script/motd.sh",
         "script/cleanup.sh"
       ],
