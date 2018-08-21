@@ -5,9 +5,7 @@ SSH_USER_HOME=${SSH_USER_HOME:-/home/${SSH_USER}}
 
 if [[ $PACKER_BUILDER_TYPE =~ virtualbox ]]; then
     echo "==> Installing VirtualBox guest additions"
-    # Assume that we've installed all the prerequisites:
-    # kernel-headers-$(uname -r) kernel-devel-$(uname -r) gcc make perl
-    # from the install media via ks.cfg
+    # Assume that we've installed all the prerequisites: kernel-headers-$(uname -r) kernel-devel-$(uname -r) gcc make perl from the install media via ks.cfg
 
     VBOX_VERSION=$(cat $SSH_USER_HOME/.vbox_version)
     mount -o loop $SSH_USER_HOME/VBoxGuestAdditions_$VBOX_VERSION.iso /mnt

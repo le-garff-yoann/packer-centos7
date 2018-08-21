@@ -4,8 +4,7 @@ rm -f /etc/machine-id
 touch /etc/machine-id
 
 echo "==> Cleaning up temporary network addresses"
-# Make sure udev doesn't block our network
-# http://6.ptmc.org/?p=1649
+# make sure udev doesn't block our network: http://6.ptmc.org/?p=1649
 if grep -q -i "release 6" /etc/redhat-release ; then
     rm -f /etc/udev/rules.d/70-persistent-net.rules
     mkdir /etc/udev/rules.d/70-persistent-net.rules
@@ -17,7 +16,7 @@ if grep -q -i "release 6" /etc/redhat-release ; then
     fi
     done
 fi
-# Better fix that persists package updates: http://serverfault.com/a/485689
+# better fix that persists package updates: http://serverfault.com/a/485689
 touch /etc/udev/rules.d/75-persistent-net-generator.rules
 for ndev in `ls -1 /etc/sysconfig/network-scripts/ifcfg-*`; do
     if [ "`basename $ndev`" != "ifcfg-lo" ]; then
@@ -56,8 +55,8 @@ case "$?" in
 esac
 set -e
 if [ "x${swapuuid}" != "x" ]; then
-    # Whiteout the swap partition to reduce box size
-    # Swap is disabled till reboot
+    # whiteout the swap partition to reduce box size
+    # swap is disabled till reboot
     swappart=$(readlink -f /dev/disk/by-uuid/$swapuuid)
     /sbin/swapoff "${swappart}"
     dd if=/dev/zero of="${swappart}" bs=1M || echo "dd exit code $? is suppressed"
@@ -65,13 +64,11 @@ if [ "x${swapuuid}" != "x" ]; then
 fi
 
 echo '==> Zeroing out empty area to save space in the final image'
-# Zero out the free space to save space in the final image.  Contiguous
-# zeroed space compresses down to nothing.
+# zero out the free space to save space in the final image. Contiguous zeroed space compresses down to nothing.
 dd if=/dev/zero of=/EMPTY bs=1M || echo "dd exit code $? is suppressed"
 rm -f /EMPTY
 
-# Block until the empty file has been removed, otherwise, Packer
-# will try to kill the box while the disk is still full and that's bad
+# block until the empty file has been removed, otherwise, Packer will try to kill the box while the disk is still full and that's bad
 sync
 
 echo "==> Disk usage before cleanup"

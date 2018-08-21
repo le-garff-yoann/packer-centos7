@@ -16,5 +16,5 @@ build:
   tags:
     - packer
   script:
-    - packer build main.json
+    - '[[ "$(git tag | tail -1)" != "" ]] && packer build -var version="$(git tag | tail -1)" main.json || packer build main.json'
   when: manual
