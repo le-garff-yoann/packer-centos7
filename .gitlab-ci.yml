@@ -1,0 +1,20 @@
+---
+
+stages:
+  - validate
+  - build
+
+validate:
+  stage: validate
+  tags:
+    - packer
+  script:
+    - packer validate main.json
+
+build:
+  stage: build
+  tags:
+    - packer
+  script:
+    - packer build main.json
+  when: manual
