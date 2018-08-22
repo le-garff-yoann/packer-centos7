@@ -39,19 +39,6 @@
       "virtualbox_version_file": ".vbox_version"
     }
   ],
-  "post-processors": [
-    [
-      {
-        "type": "vagrant",
-        "output": "box/{{.Provider}}-centos7.box"
-      },
-      {
-        "type": "vagrant-cloud",
-        "box_tag": "le-garff-yoann/centos7",
-        "version": "{{user `version`}}"
-      }
-    ]
-  ],
   "provisioners": [
     {
       "environment_vars": [
@@ -98,6 +85,19 @@
       "type": "shell",
       "pause_before": "10s"
     }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "vagrant",
+        "output": "box/{{.Provider}}-centos7.box"
+      },
+      {
+        "type": "vagrant-cloud",
+        "box_tag": "le-garff-yoann/centos7",
+        "version": "{{user `version`}}"
+      }
+    ]
   ],
   "variables": {
     "cleanup_build_tools": "true",
