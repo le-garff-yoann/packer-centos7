@@ -4,6 +4,8 @@
 
 Heavily inspired by [boxcutter/centos](https://github.com/boxcutter/centos). Just a much lighter version.
 
+Released on [Vagrant Cloud](https://app.vagrantup.com/le-garff-yoann/boxes/centos7).
+
 ## Usage
 
 ```bash
