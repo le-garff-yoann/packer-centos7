@@ -9,12 +9,26 @@ validate:
   tags:
     - packer
   script:
-    - packer validate main.json
+    - packer validate -var-file=vars.json build.json
+    - packer validate -var-file=vars.json build-n-release.json
 
 build:
   stage: build
   tags:
     - packer
   script:
-    - '[[ "$(git tag | tail -1)" != "" ]] && packer build -var version="$(git tag | tail -1)" main.json || packer build main.json'
+    - packer build -var-file=vars.json build.json
   when: manual
+
+build-n-release:
+  stage: build
+  tags:
+    - packer
+  script:
+    - >
+      [[ "$(git tag | tail -1)" != "" ]] &&
+      packer build -var-file=vars.json -var version="$(git tag | tail -1)" build-n-release.json ||
+      packer build -var-file=vars.json build-n-release.json
+  when: manual
+  only:
+    - master

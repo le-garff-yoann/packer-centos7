@@ -9,5 +9,5 @@ Heavily inspired by [boxcutter/centos](https://github.com/boxcutter/centos). Jus
 ```bash
 export VAGRANT_CLOUD_TOKEN=my-very-long-token
 
-packer build main.json
+packer build -var-file=vars.json build-n-release.json
 ```

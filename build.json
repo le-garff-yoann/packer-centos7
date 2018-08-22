@@ -24,16 +24,28 @@
       "type": "virtualbox-iso",
       "vboxmanage": [
         [
-          "modifyvm", "{{.Name}}", "--memory", "{{ user `memory` }}"
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "{{ user `memory` }}"
         ],
         [
-          "modifyvm", "{{.Name}}", "--cpus", "{{ user `cpus` }}"
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "{{ user `cpus` }}"
         ],
         [
-          "modifyvm", "{{.Name}}", "--paravirtprovider", "{{ user `virtualbox_paravirtprovider` }}"
+          "modifyvm",
+          "{{.Name}}",
+          "--paravirtprovider",
+          "{{ user `virtualbox_paravirtprovider` }}"
         ],
         [
-          "modifyvm", "{{.Name}}", "--nictype1", "{{ user `virtualbox_nictype` }}"
+          "modifyvm",
+          "{{.Name}}",
+          "--nictype1",
+          "{{ user `virtualbox_nictype` }}"
         ]
       ],
       "virtualbox_version_file": ".vbox_version"
@@ -86,45 +98,11 @@
       "pause_before": "10s"
     }
   ],
-  "post-processors": [
-    [
-      {
-        "type": "vagrant",
-        "output": "box/{{.Provider}}-centos7.box"
-      },
-      {
-        "type": "vagrant-cloud",
-        "box_tag": "le-garff-yoann/centos7",
-        "version": "{{user `version`}}"
-      }
-    ]
-  ],
   "variables": {
-    "cleanup_build_tools": "true",
-    "cpus": "1",
-    "disk_size": "65536",
     "ftp_proxy": "{{env `ftp_proxy`}}",
-    "headless": "true",
-    "http_directory": "kickstart",
     "http_proxy": "{{env `http_proxy`}}",
     "https_proxy": "{{env `https_proxy`}}",
-    "install_vagrant_key": "true",
-    "iso_checksum": "506e4e06abf778c3435b4e5745df13e79ebfc86565d7ea1e128067ef6b5a6345",
-    "iso_checksum_type": "sha256",
-    "iso_name": "CentOS-7-x86_64-DVD-1804.iso",
-    "iso_path": "iso",
-    "iso_url": "http://mirrors.sonic.net/centos/7.5.1804/isos/x86_64/CentOS-7-x86_64-DVD-1804.iso",
-    "kickstart": "ks.cfg",
-    "memory": "512",
     "no_proxy": "{{env `no_proxy`}}",
-    "rsync_proxy": "{{env `rsync_proxy`}}",
-    "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
-    "ssh_password": "vagrant",
-    "ssh_username": "vagrant",
-    "update": "false",
-    "version": "0.0.99",
-    "virtualbox_guest_os_type": "RedHat_64",
-    "virtualbox_paravirtprovider": "default",
-    "virtualbox_nictype": "virtio"
+    "rsync_proxy": "{{env `rsync_proxy`}}"
   }
 }

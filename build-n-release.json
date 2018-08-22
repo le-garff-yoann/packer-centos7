@@ -1,0 +1,121 @@
+{
+    "builders": [
+      {
+        "boot_command": [
+          "<up><wait><tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort}}/{{ user `kickstart` }}<enter>"
+        ],
+        "disk_size": "{{ user `disk_size` }}",
+        "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+        "guest_os_type": "{{ user `virtualbox_guest_os_type` }}",
+        "hard_drive_interface": "sata",
+        "headless": "{{ user `headless` }}",
+        "http_directory": "{{ user `http_directory` }}",
+        "iso_checksum": "{{ user `iso_checksum` }}",
+        "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+        "iso_urls": [
+          "{{ user `iso_path` }}/{{ user `iso_name` }}",
+          "{{ user `iso_url` }}"
+        ],
+        "output_directory": "output-virtualbox-iso",
+        "shutdown_command": "{{ user `shutdown_command` }}",
+        "ssh_password": "{{ user `ssh_password` }}",
+        "ssh_username": "{{ user `ssh_username` }}",
+        "ssh_wait_timeout": "10000s",
+        "type": "virtualbox-iso",
+        "vboxmanage": [
+          [
+            "modifyvm",
+            "{{.Name}}",
+            "--memory",
+            "{{ user `memory` }}"
+          ],
+          [
+            "modifyvm",
+            "{{.Name}}",
+            "--cpus",
+            "{{ user `cpus` }}"
+          ],
+          [
+            "modifyvm",
+            "{{.Name}}",
+            "--paravirtprovider",
+            "{{ user `virtualbox_paravirtprovider` }}"
+          ],
+          [
+            "modifyvm",
+            "{{.Name}}",
+            "--nictype1",
+            "{{ user `virtualbox_nictype` }}"
+          ]
+        ],
+        "virtualbox_version_file": ".vbox_version"
+      }
+    ],
+    "provisioners": [
+      {
+        "environment_vars": [
+          "CLEANUP_BUILD_TOOLS={{user `cleanup_build_tools`}}",
+          "UPDATE={{user `update`}}",
+          "INSTALL_VAGRANT_KEY={{user `install_vagrant_key`}}",
+          "SSH_USERNAME={{user `ssh_username`}}",
+          "SSH_PASSWORD={{user `ssh_password`}}",
+          "http_proxy={{user `http_proxy`}}",
+          "https_proxy={{user `https_proxy`}}",
+          "ftp_proxy={{user `ftp_proxy`}}",
+          "rsync_proxy={{user `rsync_proxy`}}",
+          "no_proxy={{user `no_proxy`}}"
+        ],
+        "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+        "scripts": [
+          "script/update.sh"
+        ],
+        "type": "shell",
+        "expect_disconnect": "true"
+      },
+      {
+        "environment_vars": [
+          "CLEANUP_BUILD_TOOLS={{user `cleanup_build_tools`}}",
+          "UPDATE={{user `update`}}",
+          "INSTALL_VAGRANT_KEY={{user `install_vagrant_key`}}",
+          "SSH_USERNAME={{user `ssh_username`}}",
+          "SSH_PASSWORD={{user `ssh_password`}}",
+          "http_proxy={{user `http_proxy`}}",
+          "https_proxy={{user `https_proxy`}}",
+          "ftp_proxy={{user `ftp_proxy`}}",
+          "rsync_proxy={{user `rsync_proxy`}}",
+          "no_proxy={{user `no_proxy`}}"
+        ],
+        "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+        "scripts": [
+          "script/fix-slow-dns.sh",
+          "script/sshd.sh",
+          "script/vagrant.sh",
+          "script/virtualbox-additions.sh",
+          "script/motd.sh",
+          "script/cleanup.sh"
+        ],
+        "type": "shell",
+        "pause_before": "10s"
+      }
+    ],
+    "post-processors": [
+      [
+        {
+          "type": "vagrant",
+          "output": "box/{{.Provider}}-centos7.box"
+        },
+        {
+          "type": "vagrant-cloud",
+          "box_tag": "le-garff-yoann/centos7",
+          "version": "{{user `version`}}"
+        }
+      ]
+    ],
+    "variables": {
+      "ftp_proxy": "{{env `ftp_proxy`}}",
+      "http_proxy": "{{env `http_proxy`}}",
+      "https_proxy": "{{env `https_proxy`}}",
+      "no_proxy": "{{env `no_proxy`}}",
+      "rsync_proxy": "{{env `rsync_proxy`}}"
+    }
+  }
