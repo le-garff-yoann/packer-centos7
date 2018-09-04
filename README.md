@@ -9,7 +9,6 @@ Released on [Vagrant Cloud](https://app.vagrantup.com/le-garff-yoann/boxes/cento
 ## Usage
 
 ```bash
-export VAGRANT_CLOUD_TOKEN=my-very-long-token
-
-packer build -var-file=vars.json build-n-release.json
+VAGRANT_CLOUD_TOKEN=my-very-long-token \
+    packer build -var-file=vars.json build-n-release.json
 ```
