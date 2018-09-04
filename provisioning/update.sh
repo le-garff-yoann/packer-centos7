@@ -1,6 +1,6 @@
 #!/bin/bash -eux
 
-if [[ $UPDATE  =~ true || $UPDATE =~ 1 || $UPDATE =~ yes ]]
+if [[ $UPDATE == 'true' ]]
 then
     yum -y update
 

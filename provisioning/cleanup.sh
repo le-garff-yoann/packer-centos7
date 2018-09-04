@@ -32,7 +32,7 @@ rm -rf /dev/.udev/
 
 DISK_USAGE_BEFORE_CLEANUP=$(df -h)
 
-[[ $CLEANUP_BUILD_TOOLS  =~ true || $CLEANUP_BUILD_TOOLS =~ 1 || $CLEANUP_BUILD_TOOLS =~ yes ]] && \
+[[ $CLEANUP_BUILD_TOOLS == 'true' ]] && \
     yum -y remove gcc libmpc mpfr cpp kernel-devel kernel-headers
 
 yum -y --enablerepo='*' clean all
