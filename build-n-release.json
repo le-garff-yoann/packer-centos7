@@ -2,50 +2,47 @@
     "builders": [
       {
         "boot_command": [
-          "<up><wait><tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort}}/{{ user `kickstart` }}<enter>"
+          "<up><wait><tab> text ks=http://{{.HTTPIP}}:{{.HTTPPort}}/{{user `kickstart`}}<enter>"
         ],
-        "disk_size": "{{ user `disk_size` }}",
+        "disk_size": "{{user `disk_size`}}",
         "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
-        "guest_os_type": "{{ user `virtualbox_guest_os_type` }}",
+        "guest_os_type": "{{user `virtualbox_guest_os_type`}}",
         "hard_drive_interface": "sata",
-        "headless": "{{ user `headless` }}",
-        "http_directory": "{{ user `http_directory` }}",
-        "iso_checksum": "{{ user `iso_checksum` }}",
-        "iso_checksum_type": "{{ user `iso_checksum_type` }}",
-        "iso_urls": [
-          "{{ user `iso_path` }}/{{ user `iso_name` }}",
-          "{{ user `iso_url` }}"
-        ],
+        "headless": "{{user `headless`}}",
+        "http_directory": "{{user `http_directory`}}",
+        "iso_checksum": "{{user `iso_checksum`}}",
+        "iso_checksum_type": "{{user `iso_checksum_type`}}",
+        "iso_urls": "{{user `iso_url`}}",
         "output_directory": "output-virtualbox-iso",
-        "shutdown_command": "{{ user `shutdown_command` }}",
-        "ssh_password": "{{ user `ssh_password` }}",
-        "ssh_username": "{{ user `ssh_username` }}",
-        "ssh_wait_timeout": "10000s",
+        "shutdown_command": "{{user `shutdown_command`}}",
+        "ssh_password": "{{user `ssh_password`}}",
+        "ssh_username": "{{user `ssh_username`}}",
+        "ssh_wait_timeout": "{{user `ssh_wait_timeout`}}",
         "type": "virtualbox-iso",
         "vboxmanage": [
           [
             "modifyvm",
             "{{.Name}}",
             "--memory",
-            "{{ user `memory` }}"
+            "{{user `memory`}}"
           ],
           [
             "modifyvm",
             "{{.Name}}",
             "--cpus",
-            "{{ user `cpus` }}"
+            "{{user `cpus`}}"
           ],
           [
             "modifyvm",
             "{{.Name}}",
             "--paravirtprovider",
-            "{{ user `virtualbox_paravirtprovider` }}"
+            "{{user `virtualbox_paravirtprovider`}}"
           ],
           [
             "modifyvm",
             "{{.Name}}",
             "--nictype1",
-            "{{ user `virtualbox_nictype` }}"
+            "{{user `virtualbox_nictype`}}"
           ]
         ],
         "virtualbox_version_file": ".vbox_version"
