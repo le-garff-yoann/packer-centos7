@@ -89,19 +89,7 @@
           "provisioning/vagrant.sh",
           "provisioning/virtualbox-additions.sh",
           "provisioning/motd.sh",
-          "provisioning/openscap.sh",
           "provisioning/cleanup.sh"
-        ],
-        "type": "shell",
-        "pause_before": "10s"
-      },
-      {
-        "environment_vars": [
-          "PACKER_RUN_TESTS={{user `run_tests`}}"
-        ],
-        "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
-        "scripts": [
-          "tests/openscap.sh"
         ],
         "type": "shell",
         "pause_before": "10s"
