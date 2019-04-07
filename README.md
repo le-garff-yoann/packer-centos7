@@ -1,6 +1,6 @@
 # Packer template for CentOS 7
 
-![Build Status](https://gitlab.com/le-garff-yoann/packer-centos7/badges/master/build.svg)
+[![pipeline status](https://gitlab.com/le-garff-yoann/packer-centos7/badges/master/pipeline.svg)](https://gitlab.com/le-garff-yoann/packer-centos7/pipelines)
 
 Heavily inspired by [boxcutter/centos](https://github.com/boxcutter/centos). Just a much lighter version.
 
